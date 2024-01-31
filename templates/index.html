@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebCam Stream</title>
+</head>
+<body>
+    <img id="video-feed" width="640" height="400">
+    <script>
+        const socket = new WebSocket("ws://" + window.location.host + "/ws");
+        const video = document.getElementById("video-feed");
+
+        socket.onmessage = (event) => {
+            video.src = "data:image/jpeg;base64," + event.data;
+        };
+
+        socket.onclose = () => {
+            console.error("WebSocket closed unexpectedly");
+        };
+    </script>
+</body>
+</html>
