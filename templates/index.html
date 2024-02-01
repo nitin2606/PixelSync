@@ -10,9 +10,10 @@
         const video = document.getElementById("video-feed");
 
         socket.onmessage = (event) => {
-            video.src = "data:image/jpeg;base64," + event.data;
+            video.src = "data:image/jpeg;base64,"+ event.data;
         };
 
+    
         socket.onclose = () => {
             console.error("WebSocket closed unexpectedly");
         };
