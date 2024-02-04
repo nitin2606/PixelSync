@@ -4,8 +4,13 @@ from fastapi.templating import Jinja2Templates
 import cv2
 import base64
 from typing import List
+import get_ip
 
-app = FastAPI()
+app = FastAPI(debug=False)
+
+print()
+print(f"Video feed is available is at: http://{get_ip.get_ip_address()}:8000")
+print()
 
 templates = Jinja2Templates(directory="templates")
 
@@ -41,6 +46,7 @@ class videoManager:
 
     def __init__(self):
 
+        #self.video_capture = cv2.VideoCapture("http://192.168.0.150:4747/video")
         self.video_capture = cv2.VideoCapture(0)
     
 
@@ -67,7 +73,7 @@ vManager = videoManager()
 
 @app.get("/")
 async def get(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index1.html", {"request": request})
 
 
 
@@ -94,9 +100,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
         manager.disconnect(websocket)
 
+
+
    
-
-
-
-
 #uvicorn app:app --host 0.0.0.0 --port 8000 --reload
