@@ -39,6 +39,7 @@
     <!-- Bootstrap JS and Popper.js -->
    
     <script>
+
         const socket = new WebSocket("ws://" + window.location.host + "/ws");
         const video = document.getElementById("video-feed");
 
@@ -50,6 +51,9 @@
         socket.onclose = () => {
             console.error("WebSocket closed unexpectedly");
         };
+
+
+        
     </script>
 </body>
 </html>
