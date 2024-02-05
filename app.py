@@ -6,7 +6,8 @@ import base64
 from typing import List
 import get_ip
 
-app = FastAPI(debug=False)
+
+app = FastAPI(debug=True)
 
 print()
 print(f"Video feed is available is at: http://{get_ip.get_ip_address()}:8000")
@@ -73,7 +74,7 @@ vManager = videoManager()
 
 @app.get("/")
 async def get(request: Request):
-    return templates.TemplateResponse("index1.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 
