@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+opencv-python
+Jinja2
+requests
+asyncio

@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Request, WebSocket
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import cv2
 import base64
 from typing import List
 import get_ip
+import asyncio
 
 app = FastAPI(debug=False)
 
@@ -71,12 +72,6 @@ vManager = videoManager()
 
 
 
-@app.get("/")
-async def get(request: Request):
-    return templates.TemplateResponse("index1.html", {"request": request})
-
-
-
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
 
@@ -91,14 +86,30 @@ async def websocket_endpoint(websocket: WebSocket):
 
                 try:
                     await client.send_text(frame)
+
+                    await client.receive_text(close_code=True, close_reason=True)
                 
-                except Exception:
+                except WebSocketDisconnect:
 
                     manager.disconnect(client)
+                    break
+
+                except Exception:
+                    pass
     
     finally:
 
         manager.disconnect(websocket)
+    
+
+
+
+@app.get("/")
+async def get(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+
 
 
 
