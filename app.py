@@ -53,7 +53,7 @@ class VideoProcess:
 
     def _capture_frames(self):
         video_capture = cv2.VideoCapture(0)
-        #video_capture = cv2.VideoCapture("/home/knight/PixelSync/diabetes_information.mp4")
+        
         
         while True:
             ret, frame = video_capture.read()
