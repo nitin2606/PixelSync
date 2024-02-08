@@ -2,4 +2,9 @@ fastapi
 uvicorn
 opencv-python
 Jinja2
+<<<<<<< HEAD
 requests
+=======
+requests
+asyncio
+>>>>>>> test
